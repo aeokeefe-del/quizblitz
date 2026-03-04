@@ -13,6 +13,7 @@
       :score="score"
       @restart="resetGame"
     />
+    <RouterView />
   </div>
 </template>
 
