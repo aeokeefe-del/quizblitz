@@ -1,19 +1,10 @@
 <template>
   <div id="app">
-    <StartScreen v-if="gameState === 'start'" @start="startGame" />
-
-    <QuestionCard
-      v-else-if="gameState === 'playing'"
-      :question="questions[currentIndex]"
-      @answer="handleAnswer"
-    />
-
-    <ScoreBoard
-      v-else
-      :score="score"
-      @restart="resetGame"
-    />
-    <RouterView />
+    <nav>
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/leaderboard">Leaderboard</RouterLink>
+    </nav>
+    <router-view />
   </div>
 </template>
 
@@ -90,35 +81,28 @@ export default {
       gameState: "start", // "start" | "playing" | "end"
     };
   },
-
-  methods: {
-    startGame() {
-      this.gameState = "playing";
-      this.currentIndex = 0;
-      this.score = 0;
-    },
-
-    handleAnswer(isCorrect) {
-      if (isCorrect) {
-        this.score++;
-      }
-
-      this.currentIndex++;
-
-      if (this.currentIndex === this.questions.length) {
-        this.gameState = "end";
-      }
-    },
-
-    resetGame() {
-      this.gameState = "start";
-    },
-  },
 };
 </script>
 
 <style>
 #app {
   min-height: 100vh;
+}
+
+nav {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: #1a1a2e;
+}
+
+nav a {
+  color: #e0e0e0;
+  text-decoration: none;
+}
+
+nav a.router-link-active {
+  color: #f5c518;
+  font-weight: bold;
 }
 </style>
