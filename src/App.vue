@@ -19,7 +19,7 @@ export default {
   components: {
     StartScreen,
     QuestionCard,
-    ScoreBoard,
+    ScoreBoard
   },
 
   data() {

@@ -16,12 +16,14 @@
 
 <script>
 import QuestionCard from "@/components/QuestionCard.vue";
+import ScoreBoard from "@/components/ScoreBoard.vue";
 
 export default {
   name: "PlayView",
 
   components: {
     QuestionCard,
+    ScoreBoard
   },
 
   data() {

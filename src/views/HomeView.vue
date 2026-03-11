@@ -1,23 +1,25 @@
 <template>
-  <div class="home">
-    <StartScreen @start="goToGame" />
+  <div class="home-view">
+    <StartScreen />
   </div>
 </template>
 
 <script>
 import StartScreen from "@/components/StartScreen.vue";
+import { useGameStore } from '../stores/gameStore.js'
 
 export default {
   name: "HomeView",
 
-  components: {
-    StartScreen
+  data() {
+    gameStore: useGameStore()
   },
-
-  methods: {
-    goToGame() {
-      this.$router.push({ name: "play" });
-    }
+  components: {
+    StartScreen,
+    
+  },
+  mounted() {
+    console.log(this.gameStore)
   }
 };
 </script>

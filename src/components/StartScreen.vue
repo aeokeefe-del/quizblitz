@@ -3,7 +3,7 @@
     <h1 class="title">QuizBlitz</h1>
     <p class="tagline">Fast questions. Quick reflexes. Big bragging rights.</p>
 
-    <button class="play-btn" type="button" @click="startGame">
+    <button class="play-btn" type="button" @click="goToPlay">
       Play
     </button>
   </section>
@@ -13,8 +13,8 @@
 export default {
   name: "StartScreen",
   methods: {
-    startGame() {
-      this.$emit("start");
+    goToPlay() {
+      this.$router.push({ name: "play" });
     },
   },
 };
