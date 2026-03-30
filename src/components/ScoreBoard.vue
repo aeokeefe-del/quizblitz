@@ -1,20 +1,30 @@
 <template>
-  <section class="score-board">
-    <h1 class="title">Game Over</h1>
-
-    <p class="score">
-      Your score: {{ score }} / 10
-    </p>
-
-    <button class="restart-btn" @click="restartGame">
-      Play Again
-    </button>
-  </section>
+  <div v-if="store.gameState === 'end'">
+  <h2>Game Over</h2>
+  <p>You scored {{ store.score }} of {{ store.questions.length }}</p>
+  <div v-if="!store.scoreSubmitted">
+    <input
+      v-model="store.playerName"
+      placeholder="Enter your name"
+    />
+    <button @click="store.submitScore()">Submit Score</button>
+  </div>
+  <p v-else>Score submitted! ✓</p>
+  <button @click="handleRestart">Play Again</button>
+</div>
 </template>
 
 <script>
+import { useGameStore } from '../stores/gameStore';
+
 export default {
   name: "ScoreBoard",
+
+  data() {
+    return {
+      store: useGameStore()
+    }
+  },
 
   props: {
     score: {
@@ -24,7 +34,7 @@ export default {
   },
 
   methods: {
-    restartGame() {
+    handleRestart() {
       this.$emit("restart");
     }
   }

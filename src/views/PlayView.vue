@@ -5,12 +5,6 @@
       :question="questions[currentIndex]"
       @answer="handleAnswer"
     />
-
-    <ScoreBoard
-      v-else
-      :score="score"
-      @restart="resetGame"
-    />
   </div>
 </template>
 
@@ -83,6 +77,8 @@ export default {
       currentIndex: 0,
       score: 0,
       gameState: "playing", // "playing" | "end"
+      playerName: '',
+      scoreSubmitted: false
     };
   },
 
@@ -108,7 +104,7 @@ export default {
         this.gameState = "end";
 
         // Return to home when game ends
-        this.$router.push({ name: "home" });
+        // this.$router.push({ name: "home" });
       }
     },
 
@@ -116,6 +112,11 @@ export default {
       // If you ever choose to show ScoreBoard before routing,
       // this allows replay from within the PlayView.
       this.startGame();
+    },
+
+    submitScore() {
+      // Handle score submission here
+      this.$router.push({ name: "home" });
     },
   },
 };
