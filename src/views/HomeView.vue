@@ -12,7 +12,17 @@ export default {
   name: "HomeView",
 
   data() {
-    gameStore: useGameStore()
+    return {
+      currentIndex: 0,
+      score: 0,
+      gameState: "start",
+      playerName: '',
+      scoreSubmitted: false
+    }
+  },
+  setup() {
+    const gameStore = useGameStore()
+    return { gameStore }
   },
   components: {
     StartScreen,
@@ -20,7 +30,7 @@ export default {
   },
   mounted() {
     console.log(this.gameStore)
-  }
+  },
 };
 </script>
 

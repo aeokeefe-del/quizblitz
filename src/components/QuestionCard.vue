@@ -1,21 +1,19 @@
 <template>
-  <section class="question-card">
-    <h2 class="question-text">{{ question.question }}</h2>
-
+  <div class="question-card">
+    <p class="question-text">{{ question.question }}</p>
     <div class="answers">
       <button
-        v-for="(ans, idx) in question.answers"
-        :key="idx"
-        type="button"
+        v-for="(answer, index) in question.answers"
+        :key="index"
         class="answer-btn"
-        :class="buttonClass(idx)"
-        :disabled="locked"
-        @click="handleClick(idx)"
+        :class="buttonClass(index)"
+        :disabled="selectedAnswer !== null"
+        @click="selectAnswer(index)"
       >
-        {{ ans }}
+        {{ answer }}
       </button>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -26,49 +24,25 @@ export default {
     question: {
       type: Object,
       required: true,
+      // { question: String, answers: Array, correct: Number }
     },
-  },
-
-  data() {
-    return {
-      locked: false,          // disables all buttons immediately after a click
-      selectedIndex: null,    // which button the user clicked
-      showCorrect: false,     // whether to highlight the correct answer
-    };
+    selectedAnswer: {
+      type: [Number, null],
+      default: null,
+      // null = no answer chosen yet; 0–3 = index of the button the player clicked
+    },
   },
 
   methods: {
-    handleClick(idx) {
-      if (this.locked) return;
-
-      this.locked = true;
-      this.selectedIndex = idx;
-      this.showCorrect = true;
-
-      const isCorrect = idx === this.question.correct;
-
-      setTimeout(() => {
-        this.$emit("answer", isCorrect);
-
-        // reset highlight/lock state after emitting
-        this.locked = false;
-        this.selectedIndex = null;
-        this.showCorrect = false;
-      }, 1000);
+    selectAnswer(index) {
+      if (this.selectedAnswer !== null) return;
+      this.$emit("answer", index);
     },
 
-    buttonClass(idx) {
-      // Only apply highlight classes after a selection has been made
-      if (!this.showCorrect) return "";
-
-      const correctIdx = this.question.correct;
-
-      // Always mark the correct answer green
-      if (idx === correctIdx) return "correct";
-
-      // If the user clicked a wrong answer, mark that clicked one red
-      if (this.selectedIndex === idx && this.selectedIndex !== correctIdx) return "wrong";
-
+    buttonClass(index) {
+      if (this.selectedAnswer === null) return "";
+      if (index === this.question.correct) return "correct";
+      if (index === this.selectedAnswer) return "wrong";
       return "";
     },
   },

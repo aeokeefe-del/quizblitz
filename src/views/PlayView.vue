@@ -1,9 +1,9 @@
 <template>
   <div class="play">
     <QuestionCard
-      v-if="gameState === 'playing'"
-      :question="questions[currentIndex]"
-      @answer="handleAnswer"
+      :question="{ question: 'Test?', answers: ['A', 'B', 'C', 'D'], correct: 2 }"
+      :selectedAnswer="testAnswer"
+      @answer="(i) => { console.log('clicked index:', i); testAnswer = i }"
     />
   </div>
 </template>
@@ -11,6 +11,7 @@
 <script>
 import QuestionCard from "@/components/QuestionCard.vue";
 import ScoreBoard from "@/components/ScoreBoard.vue";
+import { useGameStore } from '../stores/gameStore.js'
 
 export default {
   name: "PlayView",
@@ -20,8 +21,14 @@ export default {
     ScoreBoard
   },
 
+  setup() {
+    const gameStore = useGameStore()
+    return { gameStore }
+  },
+
   data() {
     return {
+      testAnswer: null,
       questions: [
         {
           question: "Which country invented pizza?",
