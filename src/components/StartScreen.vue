@@ -2,10 +2,6 @@
   <section class="start-screen">
     <h1 class="title">QuizBlitz</h1>
     <p class="tagline">Fast questions. Quick reflexes. Big bragging rights.</p>
-
-    <button class="play-btn" type="button" @click="goToPlay">
-      Play
-    </button>
   </section>
 </template>
 

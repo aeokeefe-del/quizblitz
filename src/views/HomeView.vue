@@ -1,16 +1,18 @@
 <template>
   <div class="home-view">
-    <button @click="startGame">Play</button>
     <StartScreen />
+    <button @click="startGame">Play</button>
   </div>
 </template>
 
 <script>
 import { useGameStore } from '../stores/gameStore.js'
+import StartScreen from '../components/StartScreen.vue'
 
 export default {
   name: 'HomeView',
 
+  components: { StartScreen },
   setup() {
     return { store: useGameStore() }
   },
