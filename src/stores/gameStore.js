@@ -55,10 +55,8 @@ export const useGameStore = defineStore('game', {
         }
       },
 
-  async startGame() {
-    const response = await fetch('http://localhost:3000/api/questions/random')
-    const questions = await response.json()
-    this.questions = questions
+  startGame() {
+    this.questions = [...questionBank]
     this.currentIndex = 0
     this.score = 0
     this.gameState = 'playing'
@@ -98,23 +96,22 @@ export const useGameStore = defineStore('game', {
       this.gameState = 'start'
       this.selectedAnswer = null
       this.timeLeft = 15
-    }
-  },
-  
-  async submitScore() {
-  if (!this.playerName.trim()) return
-  const response = await fetch('http://localhost:3000/api/scores', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      playerName: this.playerName,
-      score: this.score,
-      totalQuestions: this.questions.length
-    })
-  })
-  if (response.ok) {
-    this.scoreSubmitted = true
-  }
-},
+    },
 
+    async submitScore() {
+      if (!this.playerName.trim()) return
+      const response = await fetch('http://localhost:3000/api/scores', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          playerName: this.playerName,
+          score: this.score,
+          totalQuestions: this.questions.length
+        })
+      })
+      if (response.ok) {
+        this.scoreSubmitted = true
+      }
+    },
+  }
 })

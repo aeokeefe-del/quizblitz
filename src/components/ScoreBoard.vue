@@ -20,17 +20,9 @@ import { useGameStore } from '../stores/gameStore';
 export default {
   name: "ScoreBoard",
 
-  data() {
-    return {
-      store: useGameStore()
-    }
-  },
-
-  props: {
-    score: {
-      type: Number,
-      required: true
-    }
+  setup() {
+    const store = useGameStore()
+    return { store }
   },
 
   methods: {
