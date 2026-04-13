@@ -6,7 +6,6 @@ import "./style.css";
 
 const app = createApp(App)
 const pinia = createPinia()
-window.__pinia = pinia;
 app.use(pinia)
 
 app.use(router)
