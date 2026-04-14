@@ -55,18 +55,18 @@ export const useGameStore = defineStore('game', {
         }
       },
 
-  startGame() {
-    this.questions = [...questionBank]
-    this.currentIndex = 0
-    this.score = 0
-    this.gameState = 'playing'
-    this.selectedAnswer = null
-    this.timeLeft = 15
-    this._startTimer()
-  },
+    startGame() {
+      this.questions = [...questionBank]
+      this.currentIndex = 0
+      this.score = 0
+      this.gameState = 'playing'
+      this.selectedAnswer = null
+      this.timeLeft = 15
+      this._startTimer()
+    },
 
     submitAnswer(answerIndex) {
-      if (this.selectedAnswer !== null) return  // ignore double-clicks
+      if (this.selectedAnswer !== null) return
       this._stopTimer()
       this.selectedAnswer = answerIndex
       const isCorrect = answerIndex === this.currentQuestion.correct
@@ -98,20 +98,5 @@ export const useGameStore = defineStore('game', {
       this.timeLeft = 15
     },
 
-    async submitScore() {
-      if (!this.playerName.trim()) return
-      const response = await fetch('http://localhost:3000/api/scores', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          playerName: this.playerName,
-          score: this.score,
-          totalQuestions: this.questions.length
-        })
-      })
-      if (response.ok) {
-        this.scoreSubmitted = true
-      }
-    },
   }
 })

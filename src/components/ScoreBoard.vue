@@ -24,16 +24,6 @@ export default {
     const store = useGameStore()
     return { store }
   },
-  props: {
-  score: {
-    type: Number,
-    required: true
-  },
-  total: {
-    type: Number,
-    default: 10
-  }
-},
 
   methods: {
     handleRestart() {
