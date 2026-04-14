@@ -8,7 +8,7 @@
 
     <ol v-else-if="scores.length > 0">
       <li v-for="entry in scores" :key="entry._id">
-        <span class="name">{{ entry.playerName }}</span>
+        <span class="name">{{ entry.playerName }}: </span>
         <span class="score">{{ entry.score }} / {{ entry.totalQuestions }}</span>
       </li>
     </ol>
