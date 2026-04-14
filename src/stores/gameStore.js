@@ -67,6 +67,17 @@ export const useGameStore = defineStore('game', {
       this._startTimer()
     },
 
+    submitAnswer(answerIndex) {
+      if (this.selectedAnswer !== null) return
+      this._stopTimer()
+      this.selectedAnswer = answerIndex
+      const isCorrect = answerIndex === this.currentQuestion.correct
+      if (isCorrect) this.score++
+      setTimeout(() => {
+        this.nextQuestion()
+      }, 1000)
+    },
+
     async submitScore() {
   const response = await fetch('http://localhost:3000/api/scores', {
     method: 'POST',
