@@ -1,5 +1,5 @@
 <template>
-  <<div v-if="store.gameState === 'end'">
+  <div v-if="store.gameState === 'end'">
   <h2>Game Over</h2>
   <p>You scored {{ store.score }} / {{ store.questions.length }}</p>
 
