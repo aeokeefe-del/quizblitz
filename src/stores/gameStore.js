@@ -87,7 +87,8 @@ export const useGameStore = defineStore('game', {
     },
     body: JSON.stringify({
       score: this.score,
-      totalQuestions: this.questions.length
+      totalQuestions: this.questions.length,
+      email: this.userEmail
     })
   })
   if (response.ok) {
